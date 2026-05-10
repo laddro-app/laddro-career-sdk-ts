@@ -80,7 +80,7 @@ await test("PUT /v1/resumes/{id}/render", async () => {
 });
 
 await test("POST /v1/resumes/parse (skip - needs file)", async () => {
-  // Parse requires a real PDF file upload — tested separately
+  // Parse requires a real PDF file upload, tested separately
 });
 
 // --- TAILOR (1) ---
@@ -156,7 +156,7 @@ await test("GET /v1/settings", async () => {
 });
 
 await test("PUT /v1/settings/model", async () => {
-  // Use a fake key that will fail validation — but we're testing the SDK sends correctly
+  // Use a fake key that will fail validation. Testing the SDK sends correctly
   try {
     await client.settings.updateModel({
       provider: "OpenAI",
