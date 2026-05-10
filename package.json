@@ -35,7 +35,7 @@
     "type": "git",
     "url": "https://github.com/laddro-app/laddro-career-sdk-ts"
   },
-  "homepage": "https://developers.laddro.com",
+  "homepage": "https://docs.laddro.com",
   "engines": {
     "node": ">=18"
   },

@@ -103,7 +103,7 @@ try {
   await laddro.tailor.run({ positionName: "Engineer", jobUrl: "..." });
 } catch (e) {
   if (e instanceof LaddroUsageLimitError) {
-    console.log("Buy more credits at developers.laddro.com");
+    console.log("Buy more credits at docs.laddro.com");
   } else if (e instanceof LaddroAuthError) {
     console.log("Invalid API key");
   } else if (e instanceof LaddroAPIError) {
