@@ -3,6 +3,18 @@ export interface LaddroConfig {
   baseUrl?: string;
 }
 
+export interface ArtifactMetadata {
+  resumeId?: string;
+  coverLetterId?: string;
+  filename?: string;
+  mimeType?: string;
+}
+
+export interface BinaryResponse {
+  data: ArrayBuffer;
+  metadata: ArtifactMetadata;
+}
+
 export interface PaginationParams {
   limit?: number;
   offset?: number;
@@ -116,6 +128,11 @@ export interface CoverLetterSummary {
   id: string;
   coverLetterId: string;
   title: string;
+  letterContent?: string;
+  data?: {
+    letterContent?: string;
+    [key: string]: unknown;
+  };
   createdAt: string;
   updatedAt: string;
 }

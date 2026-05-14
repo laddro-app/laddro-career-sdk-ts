@@ -1,5 +1,5 @@
 import type { HttpClient } from "../http.js";
-import type { SSEEvent, TailorRequest } from "../types.js";
+import type { BinaryResponse, SSEEvent, TailorRequest } from "../types.js";
 
 export interface TailorFileRequest extends Omit<TailorRequest, "resumeId"> {
   file: Blob | Buffer;
@@ -17,9 +17,26 @@ export class Tailor {
     });
   }
 
+  async runDetailed(request: TailorRequest): Promise<BinaryResponse> {
+    return this.http.requestBinaryDetailed({
+      method: "POST",
+      path: "/v1/tailor",
+      body: request,
+    });
+  }
+
   async upload(request: TailorFileRequest): Promise<ArrayBuffer> {
     const form = this.buildForm(request);
     return this.http.requestBinary({
+      method: "POST",
+      path: "/v1/tailor",
+      body: form,
+    });
+  }
+
+  async uploadDetailed(request: TailorFileRequest): Promise<BinaryResponse> {
+    const form = this.buildForm(request);
+    return this.http.requestBinaryDetailed({
       method: "POST",
       path: "/v1/tailor",
       body: form,

@@ -1,5 +1,5 @@
 import { LaddroAPIError, LaddroAuthError, LaddroNotFoundError, LaddroUsageLimitError } from "./errors.js";
-import type { SSEEvent } from "./types.js";
+import type { BinaryResponse, SSEEvent } from "./types.js";
 
 export interface RequestOptions {
   method: string;
@@ -55,6 +55,11 @@ export class HttpClient {
   }
 
   async requestBinary(options: RequestOptions): Promise<ArrayBuffer> {
+    const response = await this.requestBinaryDetailed(options);
+    return response.data;
+  }
+
+  async requestBinaryDetailed(options: RequestOptions): Promise<BinaryResponse> {
     const url = this.buildUrl(options.path, options.query);
     const headers: Record<string, string> = {
       ...options.headers,
@@ -82,7 +87,15 @@ export class HttpClient {
       await this.handleError(response);
     }
 
-    return response.arrayBuffer();
+    return {
+      data: await response.arrayBuffer(),
+      metadata: {
+        resumeId: response.headers.get("x-resume-id") || undefined,
+        coverLetterId: response.headers.get("x-cover-letter-id") || undefined,
+        filename: parseContentDispositionFilename(response.headers.get("content-disposition")),
+        mimeType: response.headers.get("content-type")?.split(";")[0] || undefined,
+      },
+    };
   }
 
   async *requestSSE(options: RequestOptions): AsyncGenerator<SSEEvent> {
@@ -181,5 +194,16 @@ export class HttpClient {
       default:
         throw new LaddroAPIError(message, response.status, body.code);
     }
+  }
+}
+
+function parseContentDispositionFilename(value: string | null): string | undefined {
+  if (!value) return undefined;
+  const match = value.match(/filename\*?=(?:UTF-8''|")?([^";]+)/i);
+  if (!match) return undefined;
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return match[1];
   }
 }
