@@ -1,5 +1,5 @@
 import type { HttpClient } from "../http.js";
-import type { Language, ModelProvider, Template, TemplateDetail, TemplateFont } from "../types.js";
+import type { Language, Template, TemplateDetail, TemplateFont } from "../types.js";
 
 export class Templates {
   constructor(private http: HttpClient) {}
@@ -33,13 +33,5 @@ export class Templates {
       path: "/v1/languages",
     });
     return res.languages;
-  }
-
-  async models(): Promise<ModelProvider[]> {
-    const res = await this.http.request<{ models: ModelProvider[] }>({
-      method: "GET",
-      path: "/v1/models",
-    });
-    return res.models;
   }
 }

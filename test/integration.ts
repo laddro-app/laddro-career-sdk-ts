@@ -58,13 +58,6 @@ await test("list languages", async () => {
   assert(languages.some(l => l.code === "de"), "missing German");
 });
 
-await test("list models", async () => {
-  const models = await publicClient.templates.models();
-  assert(models.length >= 10, `expected 10+ providers, got ${models.length}`);
-  assert(models.some(m => m.name === "OpenAI"), "missing OpenAI");
-  assert(models.some(m => m.name === "Anthropic"), "missing Anthropic");
-});
-
 console.log("\n— Protected endpoints (with auth) —\n");
 
 await test("list resumes", async () => {

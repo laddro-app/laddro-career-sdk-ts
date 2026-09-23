@@ -50,13 +50,5 @@ await test("list languages", async () => {
   console.log(`    → ${languages.length} languages`);
 });
 
-await test("list models", async () => {
-  const models = await client.templates.models();
-  if (models.length < 10) throw new Error(`expected 10+ providers, got ${models.length}`);
-  if (!models.find(m => m.name === "OpenAI")) throw new Error("missing OpenAI");
-  if (!models.find(m => m.name === "Anthropic")) throw new Error("missing Anthropic");
-  console.log(`    → ${models.length} providers`);
-});
-
 console.log(`\n— Results: ${passed} passed, ${failed} failed —\n`);
 process.exit(failed > 0 ? 1 : 0);
