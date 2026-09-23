@@ -52,11 +52,6 @@ await test("GET /v1/languages", async () => {
   assert(langs.length === 14, `expected 14, got ${langs.length}`);
 });
 
-await test("GET /v1/models", async () => {
-  const models = await publicClient.templates.models();
-  assert(models.length === 10, `expected 10, got ${models.length}`);
-});
-
 // --- RESUME ENDPOINTS (4) ---
 console.log("\n— 2. Resume endpoints (4/18) —\n");
 

@@ -60,7 +60,7 @@ await laddro.settings.updateModel({
 
 ## Public endpoints
 
-Templates, fonts, languages, and models don't require authentication:
+Templates, fonts and languages don't require authentication:
 
 ```typescript
 const laddro = new Laddro(); // no API key needed
@@ -68,7 +68,6 @@ const laddro = new Laddro(); // no API key needed
 const templates = await laddro.templates.list();
 const fonts = await laddro.templates.fonts();
 const languages = await laddro.templates.languages();
-const models = await laddro.templates.models();
 ```
 
 ## File uploads

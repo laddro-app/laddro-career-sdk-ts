@@ -72,21 +72,6 @@ export interface TemplateDetail extends Template {
   availableFonts: TemplateFont[];
 }
 
-export interface ModelProvider {
-  provider: string;
-  name: string;
-  baseUrl: string;
-  models: Model[];
-  keyPrefix: string;
-  docsUrl: string;
-}
-
-export interface Model {
-  id: string;
-  name: string;
-  recommended: boolean;
-}
-
 export interface Language {
   code: string;
   name: string;
